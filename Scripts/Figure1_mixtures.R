@@ -122,9 +122,9 @@ global_size <- 12
 al <- 0.01
 
 #Merge error info for all mixtures for first panel
-xm1 <- refseq %>% subset(select=c(Consistency,dgr_err_self,d_err_self,d.gr,df_avg,dgr_avg,d,d.gp))
-xm2 <- gorg %>% subset(select=c(Consistency,dgr_err_self,d_err_self,d.gr,df_avg,dgr_avg,d,d.gp))
-xm3 <- zou %>% subset(select=c(Consistency,dgr_err_self,d_err_self,d.gr,df_avg,dgr_avg,d,d.gp))
+xm1 <- refseq %>% subset(select=c(Consistency,dgr_err_self,d_err_self,d.gr,df_avg,dgr_avg,d,d.gp,GC))
+xm2 <- gorg %>% subset(select=c(Consistency,dgr_err_self,d_err_self,d.gr,df_avg,dgr_avg,d,d.gp,GC))
+xm3 <- zou %>% subset(select=c(Consistency,dgr_err_self,d_err_self,d.gr,df_avg,dgr_avg,d,d.gp,GC))
 xm <- rbind(xm1,xm2,xm3)
 
 
@@ -609,4 +609,66 @@ png(file="Constructing_v2_2i_Consistency.png",width=750,height=500)
 ggarrange(pCd,pCdi,pCdmti,
           ncol=3,
           labels=c("(a)","(b)","(c)"))
+dev.off()
+
+
+global_size <- 10
+al <- 0.1
+errlim <- c(1e-5,1e1)
+
+
+pCGCab <- ggplot(data=xm,
+       aes(y=Consistency,x=abs(0.5-GC),color=d_err)) +
+  geom_point(alpha=al,size=1) +
+  theme_pubclean(base_size = global_size) +
+  scale_color_viridis_c(limits = errlim, oob = scales::squish,trans="log") +
+  theme(legend.position = "none")+
+  labs(color="Squared Error") +
+  xlab("|GC-0.5|")
+
+
+pCGC <- ggplot(data=xm,
+       aes(y=Consistency,x=GC,color=d_err)) +
+  geom_point(alpha=al,size=1) +
+  theme_pubclean(base_size = global_size) +
+  scale_color_viridis_c(limits = errlim, oob = scales::squish,trans="log") +
+  theme(legend.position = c(0.1,0.8))+
+  labs(color="Squared Error")
+
+
+pGCaberr <- ggplot(refseq,aes(x=abs(0.5-GC),dmti_err_self,color="MMBC")) + 
+  geom_point(alpha=0.01) +
+  geom_point(data=refseq,aes(x=abs(0.5-GC),d_err_self,color="MMv1"),
+             alpha=0.01) +
+  geom_point(data=refseq,aes(x=abs(0.5-GC),dgr_err_self,color="MMv2"),
+             alpha=0.01) +
+  geom_smooth(fill="black",
+              alpha=1,
+              method="loess") + 
+  geom_smooth(data=refseq,aes(x=abs(0.5-GC),d_err_self,color="MMv1"),
+              fill="black",
+              alpha=1,
+              method="loess") + 
+  geom_smooth(data=refseq,aes(x=abs(0.5-GC),dgr_err_self,color="MMv2"),
+              fill="black",
+              alpha=1,
+              method="loess") + 
+  scale_y_log10()+
+  labs(color="") +
+  ylab("MSE Predicting Avg. Metagenome Mode of Mixture") +
+  scale_y_log10() +
+  theme_pubclean(base_size = global_size+6) +
+  scale_color_manual(values=c("#377eb8","#e41a1c","#4daf4a")) +
+  theme(legend.position = c(0.8,0.1)) +
+  xlab("|GC-0.5|")
+
+setwd("~/gRodon2-benchmarking/Figures/")
+png(file="Constructing_v2_2i_GC-Consistency.png",width=800,height=800)
+ggarrange(ggarrange(pCGC,
+                    pCGCab,
+                    nrow=2,
+                    labels=c("(a)","(b)")),
+          pGCaberr,
+          ncol=2,
+          labels=c("","(c)"))
 dev.off()
