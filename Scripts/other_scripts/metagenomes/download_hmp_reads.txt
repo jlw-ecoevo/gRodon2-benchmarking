@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cd /media/ink/HMP/
+
+mkdir Reads
+cd Reads
+
+while read LINK;do
+  wget $LINK
+done <../hmp_read_download_links.txt
