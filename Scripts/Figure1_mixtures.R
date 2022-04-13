@@ -312,6 +312,25 @@ ggarrange(pERRself,
           hjust=0)
 dev.off()
 
+setwd("~/gRodon2-benchmarking/Figures/")
+pdf(file="Compare_all_10i.pdf",width=14,height=14)
+ggarrange(pERRself,
+          ggarrange(ggarrange(pERRrefseq,
+                              pERRgorg,
+                              pERRzou,
+                              ncol=3,
+                              labels=c("(b)","(c)","(d)")),
+                    ggarrange(pGCrefseq,
+                              pGCgorg,
+                              pGCzou,
+                              ncol=3,
+                              labels=c("(e)","(f)","(g)")),
+                    nrow=2),
+          ncol=2,
+          widths=c(1,1),
+          labels=c("(a)",""),
+          hjust=0)
+dev.off()
 
 refseq.aov <- aov(value~variable,data=refseqm)
 summary(refseq.aov)
@@ -387,6 +406,10 @@ ggarrange(ggarrange(pCC1,pCC2,ncol=2,widths=c(3,1),labels=c("(a)","(b)")),
           ggarrange(pCC3,pCC4,ncol=2,widths=c(3,1),labels=c("(c)","(d)")),
           nrow=2)
 dev.off()
+
+
+
+
 
 # Supplemental - constructing gRodon mmv2 --------------------------------------
 
@@ -511,7 +534,7 @@ ggarrange(p1,
 dev.off()
 
 global_size <- 10
-al <- 0.1
+al <- 0.2
 errlim <- c(1e-5,1e1)
 
 pGCd <- ggplot(data=xm,
@@ -613,13 +636,13 @@ dev.off()
 
 
 global_size <- 10
-al <- 0.1
+al <- 0.05
 errlim <- c(1e-5,1e1)
 
 
 pCGCab <- ggplot(data=xm,
        aes(y=Consistency,x=abs(0.5-GC),color=d_err)) +
-  geom_point(alpha=al,size=1) +
+  geom_point(alpha=al,size=2) +
   theme_pubclean(base_size = global_size) +
   scale_color_viridis_c(limits = errlim, oob = scales::squish,trans="log") +
   theme(legend.position = "none")+
@@ -629,7 +652,7 @@ pCGCab <- ggplot(data=xm,
 
 pCGC <- ggplot(data=xm,
        aes(y=Consistency,x=GC,color=d_err)) +
-  geom_point(alpha=al,size=1) +
+  geom_point(alpha=al,size=2) +
   theme_pubclean(base_size = global_size) +
   scale_color_viridis_c(limits = errlim, oob = scales::squish,trans="log") +
   theme(legend.position = c(0.1,0.8))+

@@ -60,9 +60,9 @@ p1refseq <- ggplot(refseq,aes(x=df_avg,y=mix.d.gr,color="mix.d")) +
   ggtitle("RefSeq") +
   labs(color="") +
   scale_color_manual(labels=c("Unweighted Prediction","Weighted Prediction"),
-                     values=c("#d95f02","#1b9e77")) + 
+                     values=c("#994F00","#006CD1")) + 
   scale_fill_manual(labels=c("Unweighted Prediction","Weighted Prediction"),
-                    values=c("#d95f02","#1b9e77")) + 
+                    values=c("#994F00","#006CD1")) + 
   guides(fill = FALSE) 
 
 refseq$conclass <- "> 0.6"
@@ -85,7 +85,7 @@ p2refseq <- ggplot(refseqm,aes(x=conclass,y=value,fill=variable)) +
         axis.text.x=element_text(angle = 60, vjust = 0.5)) +
   labs(color="") +
   scale_fill_manual(labels=c("Unweighted Prediction","Weighted Prediction"),
-                    values=c("#d95f02","#1b9e77")) +
+                    values=c("#994F00","#006CD1")) +
   stat_compare_means(method="wilcox.test",label.x=1.2,label = "p.signif")
 
 
@@ -109,9 +109,9 @@ p1zou <- ggplot(zou,aes(x=df_avg,y=mix.d.gr,color="mix.d")) +
   ggtitle("Human Gut") +
   labs(color="") +
   scale_color_manual(labels=c("Unweighted Prediction","Weighted Prediction"),
-                     values=c("#d95f02","#1b9e77")) + 
+                     values=c("#994F00","#006CD1")) + 
   scale_fill_manual(labels=c("Unweighted Prediction","Weighted Prediction"),
-                    values=c("#d95f02","#1b9e77")) + 
+                    values=c("#994F00","#006CD1")) + 
   guides(fill = FALSE) 
 
 zou$conclass <- "> 0.6"
@@ -134,7 +134,7 @@ p2zou <- ggplot(zoum,aes(x=conclass,y=value,fill=variable)) +
         axis.text.x=element_text(angle = 60, vjust = 0.5)) +
   labs(color="") +
   scale_fill_manual(labels=c("Unweighted Prediction","Weighted Prediction"),
-                    values=c("#d95f02","#1b9e77")) +
+                    values=c("#994F00","#006CD1")) +
   stat_compare_means(method="wilcox.test",label.x=1.2,label = "p.signif")
 
 
@@ -158,9 +158,9 @@ p1gorg <- ggplot(gorg,aes(x=df_avg,y=mix.d.gr,color="mix.d")) +
   ggtitle("Ocean Surface") +
   labs(color="") +
   scale_color_manual(labels=c("Unweighted Prediction","Weighted Prediction"),
-                     values=c("#d95f02","#1b9e77")) + 
+                     values=c("#994F00","#006CD1")) + 
   scale_fill_manual(labels=c("Unweighted Prediction","Weighted Prediction"),
-                    values=c("#d95f02","#1b9e77")) + 
+                    values=c("#994F00","#006CD1")) + 
   guides(fill = FALSE) 
 
 gorg$conclass <- "> 0.6"
@@ -183,7 +183,7 @@ p2gorg <- ggplot(gorgm,aes(x=conclass,y=value,fill=variable)) +
         axis.text.x=element_text(angle = 60, vjust = 0.5)) +
   labs(color="") +
   scale_fill_manual(labels=c("Unweighted Prediction","Weighted Prediction"),
-                    values=c("#d95f02","#1b9e77"))  +
+                    values=c("#994F00","#006CD1"))  +
   stat_compare_means(method="wilcox.test",label.x=1.2,label = "p.signif")
 
 

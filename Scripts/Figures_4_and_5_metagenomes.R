@@ -192,7 +192,7 @@ pHMP1 <- ggplot(data=hmp_df%>%subset(Body.Site=="stool"),aes(x=ConsistencyHE,fil
   xlab("Consistency")
 
 hmp_df$Body.Site <- gsub("_"," ",hmp_df$Body.Site)
-sites_keep <- names(table(hmp_df$Body.Site))[table(hmp_df$Body.Site)>50]
+sites_keep <- names(table(hmp_df$Body.Site))[table(hmp_df$Body.Site)>100]
 pHMP2 <- ggplot(hmp_df %>% subset(Body.Site %in% sites_keep),
        aes(x=reorder(Body.Site,d.2),y=d.2,fill=Body.Site)) +
   geom_boxplot() +
